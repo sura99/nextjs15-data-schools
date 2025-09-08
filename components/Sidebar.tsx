@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, Home, BarChart3, Settings, FileInput } from "lucide-react";
+import { Menu, X, Home, BarChart3, Settings,Earth } from "lucide-react";
 
 import SidebarItem from "./SidebarItem";
 
@@ -22,9 +22,9 @@ export default function Sidebar() {
           }`}
         >
           <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-            <span className="font-bold text-white">A</span>
+            <span className="font-bold text-white"><Earth/></span>
           </div>
-          <span className="text-xl font-bold text-white">PBN3 Data</span>
+          <span className="text-xl font-bold text-white">PBN3 BIGDATA</span>
         </div>
         <button
           onClick={() => setOpen(!open)}
@@ -49,12 +49,12 @@ export default function Sidebar() {
             href="/schools"
             open={open}
           />
-          {/* <SidebarItem
+          <SidebarItem
             icon={<Settings size={20} />}
-            text="ONET"
-            href="#"
+            text="ปัจจัยพื้นฐานนักเรียนยากจน"
+            href="/ctts"
             open={open}
-          /> */}
+          />
           {/* <SidebarItem
             icon={<FileInput size={20} />}
             text="NT"
@@ -70,7 +70,7 @@ export default function Sidebar() {
           open ? "opacity-100" : "opacity-0"
         }`}
       >
-        <p>© 2025 MyApp. สงวนลิขสิทธิ์</p>
+        <p>สพป.เพชรบูรณ เขต 3</p>
       </div>
     </aside>
   );

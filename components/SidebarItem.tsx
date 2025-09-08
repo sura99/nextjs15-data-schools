@@ -1,32 +1,26 @@
-// components/sidebar/SidebarItem.tsx
-import Link from "next/link";
-import { ReactNode } from "react";
-
-type SidebarItemProps = {
-  icon: ReactNode;
+interface SidebarItemProps {
+  icon: React.ReactNode;
   text: string;
   href: string;
   open: boolean;
-};
+}
 
 export default function SidebarItem({ icon, text, href, open }: SidebarItemProps) {
   return (
-    <Link
-      href={href}
-      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 hover:bg-blue-600 hover:text-white group ${
-        open ? "justify-start" : "justify-center"
-      }`}
-    >
-      <span className="text-gray-300 group-hover:text-white transition-colors">
-        {icon}
-      </span>
-      <span
-        className={`overflow-hidden transition-all duration-300 ${
-          open ? "opacity-100 w-auto" : "opacity-0 w-0"
-        }`}
+    <li>
+      <a
+        href={href}
+        className="flex items-center gap-3 p-2 rounded hover:bg-gray-700 transition-colors duration-200 overflow-hidden"
       >
-        {text}
-      </span>
-    </Link>
+        <div className="flex-shrink-0">{icon}</div>
+        <span
+          className={`transition-all duration-300 whitespace-nowrap ${
+            open ? "opacity-100 w-auto" : "opacity-0 w-0"
+          }`}
+        >
+          {text}
+        </span>
+      </a>
+    </li>
   );
 }
