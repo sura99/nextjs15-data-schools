@@ -49,18 +49,18 @@ export default function Sidebar() {
             href="/schools"
             open={open}
           />
-          <SidebarItem
+          {/* <SidebarItem
             icon={<Settings size={20} />}
             text="ONET"
             href="#"
             open={open}
-          />
-          <SidebarItem
+          /> */}
+          {/* <SidebarItem
             icon={<FileInput size={20} />}
             text="NT"
             href="#"
             open={open}
-          />
+          /> */}
         </ul>
       </nav>
 
