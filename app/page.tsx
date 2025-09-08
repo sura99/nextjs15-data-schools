@@ -1,8 +1,27 @@
 import React from 'react'
 import SummaryCard from '@/components/ui/CardComponet';
-import { Users, School, UserCheck } from 'lucide-react';
+import { Users, University, UserCheck } from 'lucide-react';
+import { School } from '@/interfaces/school';
+import StudentTableAll from '@/components/StudentTableAll'
 
-const HomePage = () => {
+import { Metadata } from 'next';
+
+// header แสดงข้อความบนหน้าเว็บ
+export const metadata: Metadata = {
+  title: 'ข้อมูลสารสนเทศ',
+  description: 'รายชื่อโรงเรียนในสังกัด สพป.เพชรบูรณ์ เขต 3',
+};
+
+async function getData(): Promise<School[]> {
+  //const res = await fetch('http://localhost:3001/schools', { cache: 'no-store' });
+  const res = await fetch('http://209.15.117.226/api/schools', { cache: 'no-store' });   //test api
+  //if (!res.ok) throw new Error('Failed to fetch schools');
+  if (!res.ok) throw new Error('Failed to fetch schools');
+  return res.json();
+}
+
+const HomePage = async () => {
+  const schools = await getData();
   return (
     <>
     <div className="mx-auto">
@@ -11,7 +30,7 @@ const HomePage = () => {
         <SummaryCard
           title="โรงเรียน"
           value={185}
-          icon={<School className="w-6 h-6" />}
+          icon={<University className="w-6 h-6" />}
           gradient="from-sky-400 to-sky-600"
           textColor="text-sky-100"
         /> 
@@ -67,6 +86,9 @@ const HomePage = () => {
           gradient="from-fuchsia-400 to-fuchsia-600"
           textColor="text-sky-100"
         />
+      </section>
+      <section>
+        <StudentTableAll schools={schools} />
       </section>
     </div>
     </>
