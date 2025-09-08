@@ -7,6 +7,7 @@ import OnetDetailM3 from './OnetDetailM3';
 import OnetBarChartM3 from './OnetBarChartM3'
 import NtBarChart from './NtBarChart'
 import NtDetail from './NtDetail'
+import TeacherTalbe from './TeacherTable'
 import {
   ArrowLeft,
   Users,
@@ -96,6 +97,10 @@ export default async function SchoolDetailPage({
           {/* {school.schoolmis[0]?.total_all ?? '-'} แบบนี้ข้อมูลไม่ปลอดภัย*/}
           {/* {school.schoolmis?.[0]?.total_all || 'ไม่มีข้อมูล'} */}
         {/* </Card> */}
+      </section>
+
+      <section>
+          <TeacherTalbe school={school} />
       </section>
 
       <SchoolMisDetail school={school} />
