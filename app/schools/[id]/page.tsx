@@ -34,8 +34,9 @@ export async function generateMetadata({
 }
 
 async function getSchool(id: string): Promise<School | null> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   //const res = await fetch(`http://localhost:3001/schools/${id}`, { cache: 'no-store' });
-  const res = await fetch(`http://209.15.117.226/api/schools/${id}`, { cache: 'no-store' });   //test api
+  const res = await fetch(`${apiUrl}/schools/${id}`, { cache: 'no-store' }); 
   if (!res.ok) return null;
   const data = await res.json();
   return Array.isArray(data) ? data[0] : data;

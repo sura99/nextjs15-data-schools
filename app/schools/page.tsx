@@ -10,8 +10,9 @@ export const metadata: Metadata = {
 };
 
 async function getData(): Promise<School[]> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   //const res = await fetch('http://localhost:3001/schools', { cache: 'no-store' });
-  const res = await fetch('http://209.15.117.226/api/schools', { cache: 'no-store' });   //test api
+  const res = await fetch(`${apiUrl}/schools`, { cache: 'no-store' }); 
   //if (!res.ok) throw new Error('Failed to fetch schools');
   if (!res.ok) throw new Error('Failed to fetch schools');
   return res.json();
