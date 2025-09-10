@@ -3,6 +3,7 @@ import { Onetp6s} from "./onetp6s"
 import { Onetm3s } from "./onetm3s"
 import { Nt } from "./nt"
 import { Teacher } from "./teacher"
+import { Cct } from "./cct"
 
 export interface School {
     id: string
@@ -27,4 +28,5 @@ export interface School {
     onetp6s: Onetp6s[]
     onetm3s: Onetm3s[]
     teachers: Teacher[]
+    ccts: Cct[]
 }

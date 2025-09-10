@@ -1,20 +1,129 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, Home, BarChart3, Settings,Earth } from "lucide-react";
+import {
+  Home,
+  BarChart3,
+  Settings,
+  Earth,
+  Menu,
+  X,
+  ChevronDown,
+  BookOpen,
+  DollarSign,
+  Users,
+  Building,
+} from "lucide-react";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "@/components/ui/collapsible";
 
-import SidebarItem from "./SidebarItem";
+// ✅ Sidebar Item ธรรมดา
+function SidebarItem({
+  icon,
+  text,
+  href,
+  open,
+}: {
+  icon: React.ReactNode;
+  text: string;
+  href: string;
+  open: boolean;
+}) {
+  return (
+    <li>
+      <a
+        href={href}
+        className={`flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-700 transition ${
+          open ? "justify-start" : "justify-center"
+        }`}
+      >
+        {icon}
+        {open && <span className="text-sm font-medium">{text}</span>}
+      </a>
+    </li>
+  );
+}
 
+// ✅ Sidebar Dropdown (เมนูย่อย)
+interface DropdownItem {
+  text: string;
+  href: string;
+  icon?: React.ReactNode;
+  target?: string; // _blank, _self, default
+}
+
+interface SidebarDropdownProps {
+  icon: React.ReactNode;
+  text: string;
+  open: boolean;
+  items: DropdownItem[];
+}
+
+function SidebarDropdown({ icon, text, open, items }: SidebarDropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <CollapsibleTrigger asChild>
+        <button
+          className={`flex items-center w-full px-3 py-2 rounded-lg hover:bg-gray-700 transition-colors duration-200 ${
+            open ? "justify-between" : "justify-center"
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            {icon}
+            {open && <span className="text-sm font-medium">{text}</span>}
+          </div>
+          {open && (
+            <ChevronDown
+              size={18}
+              className={`transition-transform duration-300 ${
+                isOpen ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          )}
+        </button>
+      </CollapsibleTrigger>
+
+      <CollapsibleContent>
+        <ul
+          className={`mt-1 space-y-1 text-gray-300 text-sm ${
+            open ? "pl-10" : "pl-3"
+          }`}
+        >
+          {items.map((item, index) => (
+            <li key={index}>
+              <a
+                href={item.href}
+                target={item.target}
+                rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-gray-700 transition"
+              >
+                {item.icon && <span>{item.icon}</span>}
+                {open && <span>{item.text}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+}
+
+// ✅ Sidebar หลัก
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
 
   return (
     <aside
       className={`${
-        open ? "w-64" : "w-16"
-      } h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white transition-all duration-300 ease-in-out flex flex-col shadow-xl`}
+        open ? "w-64" : "w-20"
+      } h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white transition-all duration-300 flex flex-col shadow-xl`}
     >
-      {/* Header with Logo */}
+      {/* Header */}
       <div className="flex items-center justify-between p-4">
         <div
           className={`flex items-center gap-3 overflow-hidden transition-all duration-300 ${
@@ -22,9 +131,9 @@ export default function Sidebar() {
           }`}
         >
           <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-            <span className="font-bold text-white"><Earth/></span>
+            <Earth size={18} className="text-white" />
           </div>
-          <span className="text-xl font-bold text-white">PBN3 BIGDATA</span>
+          <span className="text-lg font-bold">PBN3 BIGDATA</span>
         </div>
         <button
           onClick={() => setOpen(!open)}
@@ -37,30 +146,58 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="mt-6 flex-1 px-2">
         <ul className="space-y-2">
+          {/* เมนูหลัก */}
           <SidebarItem
-            icon={<Home size={20} />}
+            icon={<Home size={20} className="text-blue-400" />}
             text="หน้าหลัก"
             href="/"
             open={open}
           />
           <SidebarItem
-            icon={<BarChart3 size={20} />}
+            icon={<BarChart3 size={20} className="text-green-400" />}
             text="โรงเรียน"
             href="/schools"
             open={open}
           />
           <SidebarItem
-            icon={<Settings size={20} />}
+            icon={<BarChart3 size={20} className="text-purple-400" />}
             text="ปัจจัยพื้นฐานนักเรียนยากจน"
-            href="/ctts"
+            href="/ccts"
             open={open}
           />
-          {/* <SidebarItem
-            icon={<FileInput size={20} />}
-            text="NT"
-            href="#"
+
+          {/* Dropdown Menu */}
+          <SidebarDropdown
+            icon={<Settings size={20} className="text-yellow-400" />}
+            text="เอกสารเผยแพร่"
             open={open}
-          /> */}
+            items={[
+              {
+                text: "บริหารงานวิชาการ",
+                href: "https://pbn3.go.th/news/academic-information/",
+                icon: <BookOpen size={18} className="text-green-400" />,
+                target: "_blank",
+              },
+              {
+                text: "บริหารงานงบประมาณ",
+                href: "https://pbn3.go.th/news/budget-information/",
+                icon: <DollarSign size={18} className="text-yellow-400" />,
+                target: "_blank",
+              },
+              {
+                text: "บริหารงานบุคคล",
+                href: "https://pbn3.go.th/news/human-resource-management-information/",
+                icon: <Users size={18} className="text-purple-400" />,
+                target: "_blank",
+              },
+              {
+                text: "บริหารงานทั่วไป",
+                href: "https://pbn3.go.th/news/general-administrative-information/",
+                icon: <Building size={18} className="text-pink-400" />,
+                target: "_blank",
+              },
+            ]}
+          />
         </ul>
       </nav>
 
@@ -70,9 +207,8 @@ export default function Sidebar() {
           open ? "opacity-100" : "opacity-0"
         }`}
       >
-        <p>สพป.เพชรบูรณ เขต 3</p>
+        <p>สพป.เพชรบูรณ์ เขต 3</p>
       </div>
     </aside>
   );
 }
-
