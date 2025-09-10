@@ -13,6 +13,7 @@ import {
   DollarSign,
   Users,
   Building,
+  University,
 } from "lucide-react";
 import {
   Collapsible,
@@ -154,7 +155,7 @@ export default function Sidebar() {
             open={open}
           />
           <SidebarItem
-            icon={<BarChart3 size={20} className="text-green-400" />}
+            icon={<University size={20} className="text-green-400" />}
             text="โรงเรียน"
             href="/schools"
             open={open}
@@ -174,27 +175,23 @@ export default function Sidebar() {
             items={[
               {
                 text: "บริหารงานวิชาการ",
-                href: "https://pbn3.go.th/news/academic-information/",
+                href: "/academic",
                 icon: <BookOpen size={18} className="text-green-400" />,
-                target: "_blank",
               },
               {
                 text: "บริหารงานงบประมาณ",
-                href: "https://pbn3.go.th/news/budget-information/",
+                href: "budget",
                 icon: <DollarSign size={18} className="text-yellow-400" />,
-                target: "_blank",
               },
               {
                 text: "บริหารงานบุคคล",
-                href: "https://pbn3.go.th/news/human-resource-management-information/",
+                href: "/person",
                 icon: <Users size={18} className="text-purple-400" />,
-                target: "_blank",
               },
               {
                 text: "บริหารงานทั่วไป",
-                href: "https://pbn3.go.th/news/general-administrative-information/",
+                href: "/general",
                 icon: <Building size={18} className="text-pink-400" />,
-                target: "_blank",
               },
             ]}
           />
